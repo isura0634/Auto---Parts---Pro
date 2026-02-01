@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر قطع غيار السيارات</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* أساسيات الصفحة */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* الترويسة */
+        header {
+            background: linear-gradient(to right, #1a3a5f, #2c5282);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-left: 10px;
+            color: #ffcc00;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-right: 25px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 5px 0;
+        }
+        
+        nav ul li a:hover {
+            color: #ffcc00;
+            border-bottom: 2px solid #ffcc00;
+        }
+        
+        /* القسم الرئيسي */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 6rem 0;
+            margin-bottom: 3rem;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: #ffcc00;
+            color: #1a3a5f;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+        
+        .cta-button:hover {
+            background-color: #ffd633;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* قسم المنتجات */
+        .section-title {
+            text-align: center;
+            margin: 2.5rem 0;
+            color: #1a3a5f;
+            font-size: 2.2rem;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: #ffcc00;
+            bottom: -10px;
+            right: 50%;
+            transform: translateX(50%);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 4rem;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .product-card:hover .product-img img {
+            transform: scale(1.05);
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-info h3 {
+            color: #1a3a5f;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .product-info p {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        
+        .product-price {
+            color: #2c5282;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .product-button {
+            display: inline-block;
+            background-color: #2c5282;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .product-button:hover {
+            background-color: #1a3a5f;
+        }
+        
+        /* قسم المميزات */
+        .features {
+            background-color: #1a3a5f;
+            color: white;
+            padding: 4rem 0;
+            margin: 3rem 0;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .feature-icon {
+            background-color: #ffcc00;
+            color: #1a3a5f;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.8rem;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        /* قسم الإحصائيات */
+        .stats {
+            padding: 3rem 0;
+            background-color: #f0f7ff;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+        
+        .stat-item {
+            padding: 20px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2c5282;
+            margin-bottom: 10px;
+        }
+        
+        /* قسم الأخبار */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 4rem;
+        }
+        
+        .news-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .news-content {
+            padding: 20px;
+        }
+        
+        .news-content h3 {
+            color: #1a3a5f;
+            margin-bottom: 10px;
+        }
+        
+        .news-content p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .read-more {
+            color: #2c5282;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .read-more i {
+            margin-right: 5px;
+            transition: transform 0.3s;
+        }
+        
+        .read-more:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* التذييل */
+        footer {
+            background-color: #0f2a42;
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            color: #ffcc00;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: #ffcc00;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #2c5282;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* تصميم متجاوب */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الترويسة -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-car"></i>
+                <span>قطع غيار Pro</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">الرئيسية</a></li>
+                    <li><a href="#products">المنتجات</a></li>
+                    <li><a href="#features">الخدمات</a></li>
+                    <li><a href="#news">الأخبار</a></li>
+                    <li><a href="#contact">اتصل بنا</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- القسم الرئيسي -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>قطع غيار جديدة للسيارات</h1>
+            <p>استمتع بتجربة تسوق فريدة. نقدم لكم مجموعة واسعة من قطع الغيار عالية الجودة، مما يضمن لك تجربة تسوق مريحة وسلسة.</p>
+            <a href="#products" class="cta-button">استعرض المنتجات <i class="fas fa-arrow-left"></i></a>
+        </div>
+    </section>
+
+    <!-- قسم المنتجات -->
+    <section class="container" id="products">
+        <h2 class="section-title">جميع قطع الغيار المتوفرة</h2>
+        <div class="products-grid">
+            <!-- المنتج 1 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1563720223484-21c6c2d3c340?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="قطع غيار محرك">
+                </div>
+                <div class="product-info">
+                    <h3>قطع غيار المحرك</h3>
+                    <p>قطع غيار أصلية وعالية الجودة لجميع أنواع محركات السيارات.</p>
+                    <div class="product-price">ابتداءً من ١٤٠٠٠ جنية</div>
+                    <a href="#" class="product-button">اطلب الآن</a>
+                </div>
+            </div>
+            
+            <!-- المنتج 2 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="نظام فرامل">
+                </div>
+                <div class="product-info">
+                    <h3>نظام الفرامل</h3>
+                    <p>جميع قطع فرامل السيارات بجودة عالمية لسلامتك على الطريق.</p>
+                    <div class="product-price">ابتداءً من ٨٠٠٠ جنية</div>
+                    <a href="#" class="product-button">اطلب الآن</a>
+                </div>
+            </div>
+            
+            <!-- المنتج 3 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="إطارات سيارات">
+                </div>
+                <div class="product-info">
+                    <h3>إطارات السيارات</h3>
+                    <p>إطارات بأعلى معايير الجودة والسلامة لجميع أنواع الطرق.</p>
+                    <div class="product-price">ابتداءً من ١٢٠٠٠ جنية</div>
+                    <a href="#" class="product-button">اطلب الآن</a>
+                </div>
+            </div>
+            
+            <!-- المنتج 4 -->
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1593941707882-a5bba5338fe2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="مكونات كهربائية">
+                </div>
+                <div class="product-info">
+                    <h3>المكونات الكهربائية</h3>
+                    <p>بطاريات وكهرباء سيارات بجودة ممتازة وعمر طويل.</p>
+                    <div class="product-price">ابتداءً من ٦٠٠٠ جنية</div>
+                    <a href="#" class="product-button">اطلب الآن</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم المميزات -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">اكتشف التميز في خدماتنا</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3>أعلى جودة</h3>
+                    <p>متجر قطع غيار السيارات بأعلى جودة وضمان على المنتجات.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>فنيون محترفون</h3>
+                    <p>فنيون محترفون يقدمون استشارات متخصصة في قطع الغيار.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>خدمة مخصصة</h3>
+                    <p>خدمة مخصصة لضمان توافق قطع الغيار مع سيارتك.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>ثقة وضمان</h3>
+                    <p>ثِق بنا للحفاظ على سيارتك في أفضل حالة ممكنة.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الإحصائيات -->
+    <section class="stats">
+        <div class="container">
+            <h2 class="section-title">أرقامنا تتحدث عن إنجازاتنا</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">EGP 2.4B</div>
+                    <p>إجمالي مبيعاتنا</p>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-number">+500K</div>
+                    <p>تم توفير 500,000 جنية للعملاء</p>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-number">+50K</div>
+                    <p>عميل راضٍ عن منتجاتنا</p>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-number">80%</div>
+                    <p>يختارون الترقية كل عامين</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الأخبار -->
+    <section class="container" id="news">
+        <h2 class="section-title">الأخبار</h2>
+        <div class="news-grid">
+            <div class="news-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="أخبار الصناعة">
+                </div>
+                <div class="news-content">
+                    <h3>أخبار الصناعة</h3>
+                    <p>استخدم هذه القصاصة لبناء العديد من المكونات المتنوعة التي تتضمن صورة تمت محاذاتها إلى اليمين أو إلى اليسار، بالإضافة إلى المحتوى النصّي.</p>
+                    <a href="#" class="read-more">اكتشف المزيد <i class="fas fa-arrow-left"></i></a>
+                </div>
+            </div>
+            
+            <div class="news-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="تسوق قطع الغيار">
+                </div>
+                <div class="news-content">
+                    <h3>تسوق قطع الغيار</h3>
+                    <p>سوف يشارك خبراؤنا في مجال قطع الغيار من مختلف الدول لتقديم نصائح قيمة ومعلومات مفيدة.</p>
+                    <a href="#" class="read-more">اكتشف المزيد <i class="fas fa-arrow-left"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- التذييل -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>قطع غيار Pro</h3>
+                    <p>متجر قطع غيار السيارات الأكثر ثقة في الوطن العربي. نقدم لكم أفضل المنتجات والخدمات لسياراتكم.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>روابط سريعة</h3>
+                    <ul>
+                        <li><a href="#home">الرئيسية</a></li>
+                        <li><a href="#products">المنتجات</a></li>
+                        <li><a href="#features">الخدمات</a></li>
+                        <li><a href="#news">الأخبار</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>اتصل بنا</h3>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +20 123 456 7890</li>
+                        <li><i class="fas fa-envelope"></i> info@autopartspro.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> القاهرة، مصر</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2023 قطع غيار Pro. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // كود JavaScript لإضافة تفاعلية بسيطة
+        document.addEventListener('DOMContentLoaded', function() {
+            // تحسين تجربة التنقل
+            const navLinks = document.querySelectorAll('nav a');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if(this.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        
+                        if(targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+            
+            // إضافة تأثير للبطاقات عند التمرير
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                    }
+                });
+            }, observerOptions);
+            
+            // مراقبة عناصر المنتجات والأخبار
+            const cards = document.querySelectorAll('.product-card, .news-card, .feature-card');
+            cards.forEach(card => {
+                observer.observe(card);
+            });
+            
+            // تحديث سنة حقوق النشر تلقائياً
+            const yearSpan = document.querySelector('.copyright p');
+            if(yearSpan) {
+                const currentYear = new Date().getFullYear();
+                yearSpan.innerHTML = yearSpan.innerHTML.replace('2023', currentYear);
+            }
+        });
+    </script>
+</body>
+</html>
